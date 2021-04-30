@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/purple"
+    tools:context=".UserDeviceInputs">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="Ingrese la información del nuevo dispositivo"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:id="@+id/descripcionDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="Descripción del dispositivo"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:id="@+id/tipoDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="Tipo del dispositivo"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:id="@+id/marcaDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="Marca del dispositivo"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:id="@+id/numeroDevice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="Número de serie del dispositivo"
+            android:inputType="number"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <EditText
+            android:id="@+id/consumoDispositivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:hint="Consumo del dispositivo (kWh)"
+            android:inputType="number"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"/>
+        <Button
+            android:id="@+id/addBttnDevice"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:text="Agregar"
+            android:textAllCaps="false"
+            android:gravity = "center"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:stateListAnimator="@null"
+            />
+    </LinearLayout>>
+
+</RelativeLayout>

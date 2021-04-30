@@ -1,0 +1,253 @@
+<resources>
+    <string name="app_name">SmartHomeTEC</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_menu">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="continents_array">
+        <item>America</item>
+        <item>Europa</item>
+        <item>Africa</item>
+        <item>Asia</item>
+        <item>Oceania</item>
+    </string-array>
+
+    <string-array name="america_array">
+        <item>Antigua y Barbuda</item>>
+        <item>Argentina</item>>
+        <item>Bahamas</item>>
+        <item>Barbados</item>>
+        <item>Belice</item>>
+        <item>Bolivia</item>>
+        <item>Brasil</item>>
+        <item>Canadá</item>>
+        <item>Chile</item>>
+        <item>Colombia</item>>
+        <item>Costa Rica</item>>
+        <item>Dóminica</item>>
+        <item>Ecuador</item>>
+        <item>El Salvador</item>>
+        <item>Estados Unidos</item>>
+        <item>Granada</item>>
+        <item>Guatemala</item>>
+        <item>Guyana</item>>
+        <item>Haití</item>>
+        <item>Honduras</item>>
+        <item>Jamaica</item>>
+        <item>México</item>>
+        <item>Nicaragua</item>>
+        <item>Panamá</item>>
+        <item>Paraguay</item>>
+        <item>Perú</item>>
+        <item>República Dominicana</item>>
+        <item>San Cristóbal y Nieves</item>>
+        <item>San Vicente y las Granadinas</item>>
+        <item>Santa Lucía</item>>
+        <item>Surinam</item>>
+        <item>Trinidad y Tobago</item>>
+        <item>Uruguay</item>>
+        <item>Venezuela</item>>
+    </string-array>>
+
+    <string-array name="europa_array">
+        <item>Albania</item>>
+        <item>Alemania</item>>
+        <item>Andorra</item>>
+        <item>Armenia</item>>
+        <item>Austria</item>>
+        <item>Azerbaiyán</item>>
+        <item>Bélgica</item>>
+        <item>Bielorrusia</item>>
+        <item>Bosnia y Herzegovina</item>>
+        <item>Bulgaria</item>>
+        <item>Chipre</item>>
+        <item>Croacia</item>>
+        <item>Dinamarca</item>>
+        <item>Eslovaquia</item>>
+        <item>Eslovenia</item>>
+        <item>España</item>>
+        <item>Estonia</item>>
+        <item>Finlandia</item>>
+        <item>Francia</item>>
+        <item>Georgia</item>>
+        <item>Grecia</item>>
+        <item>Hungría</item>>
+        <item>Irlanda</item>>
+        <item>Islandia</item>>
+        <item>Italia</item>>
+        <item>Letonia</item>>
+        <item>Liechtenstein</item>>
+        <item>Lituania</item>>
+        <item>Luxemburgo</item>>
+        <item>Macedonia del Norte</item>>
+        <item>Malta</item>>
+        <item>Moldavia</item>>
+        <item>Mónaco</item>>
+        <item>Montenegro</item>>
+        <item>Noruega</item>>
+        <item>Países Bajos</item>>
+        <item>Polonia</item>>
+        <item>Portugal</item>>
+        <item>Reino Unido</item>>
+        <item>República Checa</item>>
+        <item>Rumania</item>>
+        <item>Rusia</item>>
+        <item>San Marino</item>>
+        <item>Serbia</item>>
+        <item>Suecia</item>>
+        <item>Suiza</item>>
+        <item>Ucrania</item>>
+        <item>Vaticano</item>>
+    </string-array>>
+
+    <string-array name="asia_array">
+        <item>Afganistán</item>>
+        <item>Arabia Saudita</item>>
+        <item>Armenia</item>>
+        <item>Azerbaiyán</item>>
+        <item>Bangladés</item>>
+        <item>Baréin</item>>
+        <item>Birmania</item>>
+        <item>Brunéi</item>>
+        <item>Bután</item>>
+        <item>Camboya</item>>
+        <item>Catar</item>>
+        <item>República Popular China</item>>
+        <item>Chipre</item>>
+        <item>Corea del Norte</item>>
+        <item>Corea del Sur</item>>
+        <item>Emiratos Árabes Unidos</item>>
+        <item>Filipinas</item>>
+        <item>Georgia</item>>
+        <item>India</item>>
+        <item>Indonesia</item>>
+        <item>Irak</item>>
+        <item>Irán</item>>
+        <item>Israel</item>>
+        <item>Japón</item>>
+        <item>Jordania</item>>
+        <item>Kazajistán</item>>
+        <item>Kirguistán</item>>
+        <item>Kuwait</item>>
+        <item>Laos</item>>
+        <item>Líbano</item>>
+        <item>Malasia</item>>
+        <item>Maldivas</item>>
+        <item>Mongolia</item>>
+        <item>Nepal</item>>
+        <item>Omán</item>>
+        <item>Pakistán</item>>
+        <item>Palestina</item>>
+        <item>Rusia</item>>
+        <item>Singapur</item>>
+        <item>Siria</item>>
+        <item>Sri Lanka</item>>
+        <item>Tailandia</item>>
+        <item>Taiwán</item>>
+        <item>Tayikistán</item>>
+        <item>Timor Oriental</item>>
+        <item>Turkmenistán</item>>
+        <item>Turquía</item>>
+        <item>Uzbekistán</item>>
+        <item>Vietnam</item>>
+        <item>Yemen</item>>
+    </string-array>>
+
+    <string-array name="africa_array">
+        <item>Angola</item>>
+        <item>Argelia</item>>
+        <item>Benín</item>>
+        <item>Botsuana</item>>
+        <item>Burkina Faso</item>>
+        <item>Burundi</item>>
+        <item>Cabo Verde</item>>
+        <item>Camerún</item>>
+        <item>República Centroafricana</item>>
+        <item>Chad</item>>
+        <item>Comoras</item>>
+        <item>República del Congo</item>>
+        <item>República Democrática del Congo</item>>
+        <item>Costa de Marfil</item>>
+        <item>Egipto</item>>
+        <item>Eritrea</item>>
+        <item>Etiopía</item>>
+        <item>Gabón</item>>
+        <item>Gambia</item>>
+        <item>Ghana</item>>
+        <item>Guinea</item>>
+        <item>Guinea-Bisáu</item>>
+        <item>Guinea Ecuatorial</item>>
+        <item>Kenia</item>>
+        <item>Lesoto</item>>
+        <item>Liberia</item>>
+        <item>Libia</item>>
+        <item>Madagascar</item>>
+        <item>Malaui</item>>
+        <item>Malí</item>>
+        <item>Marruecos</item>>
+        <item>Mauricio</item>>
+        <item>Mauritania</item>>
+        <item>Mozambique</item>>
+        <item>Namibia</item>>
+        <item>Níger</item>>
+        <item>Nigeria</item>>
+        <item>Ruanda</item>>
+        <item>Santo Tomé y Principe</item>>
+        <item>Senegal</item>>
+        <item>Seychelles</item>>
+        <item>Sierra Leona</item>>
+        <item>Somalia</item>>
+        <item>Suazilandia</item>>
+        <item>Sudáfrica</item>>
+        <item>Sudán</item>>
+        <item>Sudán del Sur</item>>
+        <item>Tanzania</item>>
+        <item>Togo</item>>
+        <item>Túnez</item>>
+        <item>Uganda</item>>
+        <item>Yibuti</item>>
+        <item>Zambia</item>>
+        <item>Zimbabue</item>>
+    </string-array>>
+
+    <string-array name="oceania_array">
+        <item>Australia</item>>
+        <item>Fiyi</item>>
+        <item>Kiribati</item>>
+        <item>Islas Marshall</item>>
+        <item>Islas Salomón</item>>
+        <item>Micronesia</item>>
+        <item>Nauru</item>>
+        <item>Nueva Zelanda</item>>
+        <item>Palaos</item>>
+        <item>Papúa Nueva Guinea</item>>
+        <item>Samoa</item>>
+        <item>Tonga</item>>
+        <item>Tuvalu</item>>
+        <item>Vanuatu</item>>
+        <item>Egipto</item>>
+        <item>Eritrea</item>>
+        <item>Etiopía</item>>
+        <item>Gabón</item>>
+        <item>Gambia</item>>
+        <item>Ghana</item>>
+        <item>Guinea</item>>
+        <item>Guinea-Bisáu</item>>
+        <item>Guinea Ecuatorial</item>>
+        <item>Kenia</item>>
+    </string-array>>
+
+
+</resources>
