@@ -24,6 +24,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_NAME_APOSENTO = "nombre_aposento";
     private static final String KEY_APOSENTO_EMAIL = "user_email";
 
+    private static final String TABLE_DISPOSITIVO = "dispositivo";
+    private static final String KEY_MARCA = "marca";
+    private static final String KEY_USER_CORREO = "user_email";
+    private static final String KEY_APOSENTO = "aposento";
+    private static final String KEY_SERIE = "numSerie";
+    private static final String KEY_CONSUMO = "consumo";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,12 +49,21 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 + ")";
 
         String CREATE_APOSENTOS_TABLE = "CREATE TABLE " + TABLE_APOSENTO + "("
-                + KEY_APOSENTO_EMAIL + " TEXT PRIMARY KEY,"
-                + KEY_NAME_APOSENTO + " TEXT"
+                + KEY_APOSENTO_EMAIL + " TEXT ,"
+                + KEY_NAME_APOSENTO + " TEXT , PRIMARY KEY (" + KEY_APOSENTO_EMAIL + "," + KEY_NAME_APOSENTO
+                + "))";
+
+        String CREATE_DISPOSITIVOS_TABLE = "CREATE TABLE " + TABLE_DISPOSITIVO + "("
+                + KEY_SERIE + " TEXT PRIMARY KEY,"
+                + KEY_MARCA + " TEXT,"
+                + KEY_USER_CORREO + " TEXT,"
+                + KEY_APOSENTO + " TEXT,"
+                + KEY_CONSUMO + " INTEGER"
                 + ")";
 
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_APOSENTOS_TABLE);
+        db.execSQL(CREATE_DISPOSITIVOS_TABLE);
     }
 
     @Override
@@ -56,6 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_APOSENTO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISPOSITIVO);
         // Create tables again
         onCreate(db);
     }
@@ -183,4 +199,75 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    public Cursor viewAposentos(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) ='"+ email.trim()+"'";
+       // String query = "SELECT " + KEY_NAME_APOSENTO +" FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) = '"+ email.trim()+"'";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+
+    }
+
+
+    //DISPOSITIVOS
+
+    public void addDispositivo(Dispositivo dispositivo){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_SERIE, dispositivo.getNumSerie());
+        values.put(KEY_MARCA, dispositivo.getMarca());
+        values.put(KEY_USER_CORREO, dispositivo.getUserCorreo());
+        values.put(KEY_APOSENTO, dispositivo.getAposento());
+        values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
+        // Inserting Row
+        db.insert(TABLE_DISPOSITIVO, null, values);
+        //2nd argument is String containing nullColumnHack
+        db.close(); // Closing database connection
+    }
+
+    public void deleteDispositivo(Dispositivo dispositivo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_DISPOSITIVO, KEY_SERIE + " = ?",
+                new String[] { dispositivo.getNumSerie() });
+        db.close();
+    }
+
+    public int updateDispositivo(Dispositivo dispositivo) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_SERIE, dispositivo.getNumSerie());
+        values.put(KEY_MARCA, dispositivo.getMarca());
+        values.put(KEY_USER_CORREO, dispositivo.getUserCorreo());
+        values.put(KEY_APOSENTO, dispositivo.getAposento());
+        values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
+
+        // updating row
+        return db.update(TABLE_DISPOSITIVO, values, KEY_SERIE + " = ?",
+                new String[] { dispositivo.getNumSerie() });
+    }
+
+    public boolean checkDispositivo(String numserie){
+        String[] columns = {
+                KEY_SERIE
+        };
+        String selection = KEY_EMAIL + " = ?";
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] selectionArgs = {numserie};
+
+        Cursor cursor = db.query(TABLE_DISPOSITIVO,
+                columns,
+                selection,
+                selectionArgs,
+                null, null, null
+        );
+
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+        if(cursorCount>0){
+            return true;
+        }
+        return false;
+    }
 }

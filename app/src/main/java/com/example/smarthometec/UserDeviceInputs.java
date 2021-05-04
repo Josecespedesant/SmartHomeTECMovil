@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.smarthometec.ui.aposentos.AposentosFragment;
+import com.example.smarthometec.ui.database.DatabaseHandler;
 import com.example.smarthometec.ui.database.Dispositivo;
 
 public class UserDeviceInputs extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class UserDeviceInputs extends AppCompatActivity {
     Spinner dropdown;
     String itemselected;
 
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class UserDeviceInputs extends AppCompatActivity {
         setContentView(R.layout.activity_user_device_inputs);
         dropdown  = findViewById(R.id.spinner1);
         dropdown.setAdapter(AposentosFragment.arrayAdapter);
+
+        db = new DatabaseHandler(this);
 
         btn = findViewById(R.id.addBttnDevice);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +48,7 @@ public class UserDeviceInputs extends AppCompatActivity {
                 String descr = etDescr.getText().toString();
                 String tipo = etTipo.getText().toString();
                 String marca = etMarca.getText().toString();
-                int numeroserie = Integer.getInteger(etNumero.getText().toString());
+                String numeroserie = etNumero.getText().toString();
                 int consumo = Integer.getInteger(etConsumo.getText().toString());
 
 
@@ -58,20 +62,31 @@ public class UserDeviceInputs extends AppCompatActivity {
                     Toast.makeText(UserDeviceInputs.this, "Por favor defina un número de serie.", Toast.LENGTH_SHORT).show();
                 }else if(etConsumo.equals("")){
                     Toast.makeText(UserDeviceInputs.this, "Por favor defina un valor de consumo.", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(!db.checkDispositivo(numeroserie)) {
+                        Dispositivo dispositivoaux = new Dispositivo(numeroserie,itemselected, "yenus", marca, consumo);
+                        db.addDispositivo(dispositivoaux);
+
+                        Intent intent = new Intent();
+                        intent.putExtra("descr", descr);
+                        intent.putExtra("tipo", tipo);
+                        intent.putExtra("marca", marca);
+                        intent.putExtra("numero", numeroserie);
+                        intent.putExtra("consumo", consumo);
+                        intent.putExtra("aposento", itemselected);
+
+                        Toast.makeText(UserDeviceInputs.this, "Dispositivo agregado con éxito.", Toast.LENGTH_SHORT).show();
+
+                        setResult(Activity.RESULT_OK,intent);
+                        finish();
+
+
+                    }
                 }
 
                 //ELSE IF numero dispositivo no esta registrado THEN numero no registrado, intente de nuevo
                 //ELSE IF nombre ya está registrado THEN no pueden haber dos aposentos con el mismo nombre
-                Intent intent = new Intent();
-                intent.putExtra("descr", descr);
-                intent.putExtra("tipo", tipo);
-                intent.putExtra("marca", marca);
-                intent.putExtra("numero", numeroserie);
-                intent.putExtra("consumo", consumo);
-                intent.putExtra("aposento", itemselected);
 
-                setResult(Activity.RESULT_OK,intent);
-                finish();
             }
         });
 

@@ -6,7 +6,7 @@ public class Aposento {
 
     public Aposento(){}
 
-    public Aposento(String email, String userCorreo){
+    public Aposento(String name, String userCorreo){
         this.name = name;
         this.userCorreo = userCorreo;
     }

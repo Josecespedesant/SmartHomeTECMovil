@@ -1,12 +1,12 @@
 package com.example.smarthometec.ui.database;
 
 public class Dispositivo {
-    String marca, userCorreo, aposento;
-    int numSerie, consumoElectrico;
+    String marca, userCorreo, aposento, numSerie;
+    int consumoElectrico;
 
     public Dispositivo(){}
 
-    public Dispositivo(int numSerie, String aposento, String userCorreo, String marca, int consumoElectrico){
+    public Dispositivo(String numSerie, String aposento, String userCorreo, String marca, int consumoElectrico){
         this.numSerie = numSerie;
         this.aposento = aposento;
         this.userCorreo = userCorreo;
@@ -38,11 +38,11 @@ public class Dispositivo {
         this.aposento = aposento;
     }
 
-    public int getNumSerie() {
+    public String getNumSerie() {
         return numSerie;
     }
 
-    public void setNumSerie(int numSerie) {
+    public void setNumSerie(String numSerie) {
         this.numSerie = numSerie;
     }
 
@@ -50,7 +50,5 @@ public class Dispositivo {
         return consumoElectrico;
     }
 
-    public void setConsumoElectrico(int consumoElectrico) {
-        this.consumoElectrico = consumoElectrico;
-    }
+    public void setConsumoElectrico(int consumoElectrico) {  this.consumoElectrico = consumoElectrico;}
 }
