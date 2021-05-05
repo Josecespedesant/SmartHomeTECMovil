@@ -59,7 +59,8 @@
         <item>Trinidad y Tobago</item>>
         <item>Uruguay</item>>
         <item>Venezuela</item>>
-    </string-array>>
+    </string-array>
+    >
 
     <string-array name="europa_array">
         <item>Albania</item>>
@@ -110,7 +111,8 @@
         <item>Suiza</item>>
         <item>Ucrania</item>>
         <item>Vaticano</item>>
-    </string-array>>
+    </string-array>
+    >
 
     <string-array name="asia_array">
         <item>Afganistán</item>>
@@ -163,7 +165,8 @@
         <item>Uzbekistán</item>>
         <item>Vietnam</item>>
         <item>Yemen</item>>
-    </string-array>>
+    </string-array>
+    >
 
     <string-array name="africa_array">
         <item>Angola</item>>
@@ -220,7 +223,8 @@
         <item>Yibuti</item>>
         <item>Zambia</item>>
         <item>Zimbabue</item>>
-    </string-array>>
+    </string-array>
+    >
 
     <string-array name="oceania_array">
         <item>Australia</item>>
@@ -247,7 +251,8 @@
         <item>Guinea-Bisáu</item>>
         <item>Guinea Ecuatorial</item>>
         <item>Kenia</item>>
-    </string-array>>
+    </string-array>
+    >
 
 
 </resources>

@@ -21,7 +21,7 @@ public class UserDeviceInputs extends AppCompatActivity {
     Button btn;
     EditText etDescr, etTipo, etMarca, etNumero, etConsumo;
     Spinner dropdown;
-    String itemselected;
+    String itemselected, email;
 
     DatabaseHandler db;
 
@@ -31,7 +31,7 @@ public class UserDeviceInputs extends AppCompatActivity {
         setContentView(R.layout.activity_user_device_inputs);
         dropdown  = findViewById(R.id.spinner1);
         dropdown.setAdapter(AposentosFragment.arrayAdapter);
-
+        email = getIntent().getStringExtra("email");
         db = new DatabaseHandler(this);
 
         btn = findViewById(R.id.addBttnDevice);
@@ -49,7 +49,7 @@ public class UserDeviceInputs extends AppCompatActivity {
                 String tipo = etTipo.getText().toString();
                 String marca = etMarca.getText().toString();
                 String numeroserie = etNumero.getText().toString();
-                int consumo = Integer.getInteger(etConsumo.getText().toString());
+                String consumo = etConsumo.getText().toString();
 
 
                 if(etDescr.equals("")){
@@ -63,8 +63,8 @@ public class UserDeviceInputs extends AppCompatActivity {
                 }else if(etConsumo.equals("")){
                     Toast.makeText(UserDeviceInputs.this, "Por favor defina un valor de consumo.", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(!db.checkDispositivo(numeroserie)) {
-                        Dispositivo dispositivoaux = new Dispositivo(numeroserie,itemselected, "yenus", marca, consumo);
+
+                        Dispositivo dispositivoaux = new Dispositivo(numeroserie,descr,itemselected, email, marca, consumo);
                         db.addDispositivo(dispositivoaux);
 
                         Intent intent = new Intent();
@@ -81,7 +81,7 @@ public class UserDeviceInputs extends AppCompatActivity {
                         finish();
 
 
-                    }
+
                 }
 
                 //ELSE IF numero dispositivo no esta registrado THEN numero no registrado, intente de nuevo

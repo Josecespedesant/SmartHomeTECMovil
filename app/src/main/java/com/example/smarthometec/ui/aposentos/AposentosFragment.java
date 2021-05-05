@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.smarthometec.DeviceList;
 import com.example.smarthometec.Menu;
 import com.example.smarthometec.R;
 import com.example.smarthometec.UserChamberInput;
@@ -54,12 +56,23 @@ public class AposentosFragment extends Fragment {
         listView = root.findViewById(R.id.lista_de_aposentos);
 
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String name = (String) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(getContext(), DeviceList.class);
+                intent.putExtra("email", email);
+                intent.putExtra("aposento",name);
+                startActivity(intent);
+            }
+        });
 
         addAposentoApo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), UserChamberInput.class);
                 startActivityForResult(i, 1);
+                listView.setAdapter(arrayAdapter);
             }
         });
 
@@ -67,6 +80,7 @@ public class AposentosFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), UserDeviceInputs.class);
+                i.putExtra("email", email);
                 startActivityForResult(i, 2);
                 arrayAdapter.notifyDataSetChanged();
             }

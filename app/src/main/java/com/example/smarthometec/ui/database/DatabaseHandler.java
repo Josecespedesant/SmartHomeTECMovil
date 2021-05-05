@@ -25,11 +25,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_APOSENTO_EMAIL = "user_email";
 
     private static final String TABLE_DISPOSITIVO = "dispositivo";
+    private static final String KEY_DESCRIPTION = "descripcion";
     private static final String KEY_MARCA = "marca";
     private static final String KEY_USER_CORREO = "user_email";
     private static final String KEY_APOSENTO = "aposento";
     private static final String KEY_SERIE = "numSerie";
     private static final String KEY_CONSUMO = "consumo";
+    private static final String KEY_ISON = "isOn";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,10 +57,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         String CREATE_DISPOSITIVOS_TABLE = "CREATE TABLE " + TABLE_DISPOSITIVO + "("
                 + KEY_SERIE + " TEXT PRIMARY KEY,"
+                + KEY_DESCRIPTION + " TEXT,"
                 + KEY_MARCA + " TEXT,"
                 + KEY_USER_CORREO + " TEXT,"
                 + KEY_APOSENTO + " TEXT,"
-                + KEY_CONSUMO + " INTEGER"
+                + KEY_CONSUMO + " TEXT,"
+                + KEY_ISON + " INTEGER"
                 + ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -215,10 +219,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_SERIE, dispositivo.getNumSerie());
+        values.put(KEY_DESCRIPTION, dispositivo.getDescription());
         values.put(KEY_MARCA, dispositivo.getMarca());
         values.put(KEY_USER_CORREO, dispositivo.getUserCorreo());
         values.put(KEY_APOSENTO, dispositivo.getAposento());
         values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
+        values.put(KEY_ISON, dispositivo.isOn());
         // Inserting Row
         db.insert(TABLE_DISPOSITIVO, null, values);
         //2nd argument is String containing nullColumnHack
@@ -237,11 +243,12 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         ContentValues values = new ContentValues();
         values.put(KEY_SERIE, dispositivo.getNumSerie());
+        values.put(KEY_DESCRIPTION, dispositivo.getDescription());
         values.put(KEY_MARCA, dispositivo.getMarca());
         values.put(KEY_USER_CORREO, dispositivo.getUserCorreo());
         values.put(KEY_APOSENTO, dispositivo.getAposento());
         values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
-
+        values.put(KEY_ISON, dispositivo.isOn());
         // updating row
         return db.update(TABLE_DISPOSITIVO, values, KEY_SERIE + " = ?",
                 new String[] { dispositivo.getNumSerie() });
@@ -270,4 +277,22 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         }
         return false;
     }
+
+    public Cursor viewDispositivos(String email, String aposento){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_DISPOSITIVO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(aposento) ='"+ aposento.trim()+"'";
+        // String query = "SELECT " + KEY_NAME_APOSENTO +" FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) = '"+ email.trim()+"'";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+    public Cursor viewDispositivoInfo(String email, String aposento, String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_DISPOSITIVO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(aposento) ='"+ aposento.trim()+"'" + " AND " + " TRIM(numSerie) ='"+ id.trim()+"'";
+        // String query = "SELECT " + KEY_NAME_APOSENTO +" FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) = '"+ email.trim()+"'";
+        Cursor cursor = db.rawQuery(query, null);
+        return cursor;
+    }
+
+
 }

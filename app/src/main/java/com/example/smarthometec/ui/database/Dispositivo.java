@@ -1,17 +1,29 @@
 package com.example.smarthometec.ui.database;
 
 public class Dispositivo {
-    String marca, userCorreo, aposento, numSerie;
-    int consumoElectrico;
-
+    String marca, userCorreo, aposento, numSerie, description;
+    String consumoElectrico;
+    int isOn;
     public Dispositivo(){}
 
-    public Dispositivo(String numSerie, String aposento, String userCorreo, String marca, int consumoElectrico){
+    public Dispositivo(String numSerie, String description,String aposento, String userCorreo, String marca, String consumoElectrico){
+        this.description = description;
         this.numSerie = numSerie;
         this.aposento = aposento;
         this.userCorreo = userCorreo;
         this.marca = marca;
         this.consumoElectrico = consumoElectrico;
+        this.isOn = 0;
+    }
+
+    public Dispositivo(String numSerie, String description,String aposento, String userCorreo, String marca, String consumoElectrico, int ison){
+        this.description = description;
+        this.numSerie = numSerie;
+        this.aposento = aposento;
+        this.userCorreo = userCorreo;
+        this.marca = marca;
+        this.consumoElectrico = consumoElectrico;
+        this.isOn = ison;
     }
 
     public String getMarca() {
@@ -30,6 +42,14 @@ public class Dispositivo {
         this.userCorreo = userCorreo;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getAposento() {
         return aposento;
     }
@@ -46,9 +66,18 @@ public class Dispositivo {
         this.numSerie = numSerie;
     }
 
-    public int getConsumoElectrico() {
+    public String getConsumoElectrico() {
         return consumoElectrico;
     }
 
-    public void setConsumoElectrico(int consumoElectrico) {  this.consumoElectrico = consumoElectrico;}
+    public void setConsumoElectrico(String consumoElectrico) {  this.consumoElectrico = consumoElectrico;}
+    //0 is not on
+    //1 is on
+    public int isOn() {
+        return isOn;
+    }
+
+    public void setOn(int isOn) {  this.isOn = isOn;}
+
+
 }
