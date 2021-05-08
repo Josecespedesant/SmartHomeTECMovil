@@ -233,8 +233,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
     public void deleteDispositivo(Dispositivo dispositivo) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_DISPOSITIVO, KEY_SERIE + " = ?",
-                new String[] { dispositivo.getNumSerie() });
+        db.delete(TABLE_DISPOSITIVO, KEY_USER_CORREO + " = ?",
+                new String[] { dispositivo.getUserCorreo() });
         db.close();
     }
 
@@ -281,7 +281,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public Cursor viewDispositivos(String email, String aposento){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_DISPOSITIVO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(aposento) ='"+ aposento.trim()+"'";
-        // String query = "SELECT " + KEY_NAME_APOSENTO +" FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) = '"+ email.trim()+"'";
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
     }
@@ -289,9 +288,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public Cursor viewDispositivoInfo(String email, String aposento, String id){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_DISPOSITIVO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(aposento) ='"+ aposento.trim()+"'" + " AND " + " TRIM(numSerie) ='"+ id.trim()+"'";
-        // String query = "SELECT " + KEY_NAME_APOSENTO +" FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) = '"+ email.trim()+"'";
         Cursor cursor = db.rawQuery(query, null);
         return cursor;
+    }
+    //FIXEAR
+    public void deleteOneDevice(String id, String aposento, String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_DISPOSITIVO, KEY_USER_CORREO + "=? AND " + KEY_APOSENTO + "=? AND " +
+                KEY_SERIE + "=?",new String[]{email,aposento,id});
+        db.close();
+
     }
 
 

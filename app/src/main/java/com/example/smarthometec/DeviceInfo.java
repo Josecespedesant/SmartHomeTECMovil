@@ -2,9 +2,12 @@ package com.example.smarthometec;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -26,6 +29,8 @@ public class DeviceInfo extends AppCompatActivity {
     String id;
     boolean isOn;
     int isOnInt;
+
+    Button delete,edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,8 @@ public class DeviceInfo extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         aposento = getIntent().getStringExtra("aposento");
         id = getIntent().getStringExtra("idserie");
-
+        delete = findViewById(R.id.delete_device);
+        edit = findViewById(R.id.edit_device);
         isonswitch = findViewById(R.id.turnonoffdevice);
 
         listView = findViewById(R.id.lista_de_atributos_dispositivo);
@@ -84,6 +90,24 @@ public class DeviceInfo extends AppCompatActivity {
                     }
                 }
 
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.deleteOneDevice(id, aposento, email);
+                finish();
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DeviceInfo.this, EditUserDevice.class);
+                i.putExtra("email",email);
+                i.putExtra("id",id);
+                i.putExtra("aposento",aposento);
+                startActivity(i);
             }
         });
 

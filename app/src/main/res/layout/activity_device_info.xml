@@ -17,13 +17,35 @@
             android:id="@+id/lista_de_atributos_dispositivo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <Switch
-            android:id="@+id/turnonoffdevice"
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="Estado actual"
-            android:textSize="20dp"
-            />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/edit_device"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Editar dispositivo"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content" />
+            <Button
+                android:id="@+id/delete_device"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Borrar dispositivo"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content" />
+            <Switch
+                android:id="@+id/turnonoffdevice"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text=""
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

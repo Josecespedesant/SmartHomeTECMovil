@@ -16,6 +16,10 @@ public class Dispositivo {
         this.isOn = 0;
     }
 
+    public Dispositivo(String userCorreo){
+        this.userCorreo = userCorreo;
+    }
+
     public Dispositivo(String numSerie, String description,String aposento, String userCorreo, String marca, String consumoElectrico, int ison){
         this.description = description;
         this.numSerie = numSerie;
