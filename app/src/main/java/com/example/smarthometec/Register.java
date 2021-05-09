@@ -3,6 +3,7 @@ package com.example.smarthometec;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +17,13 @@ import com.example.smarthometec.ui.database.Aposento;
 import com.example.smarthometec.ui.database.DatabaseHandler;
 import com.example.smarthometec.ui.database.User;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText etName, etLastName, etAddres, etEmail, etPass, etConfirmPass;
@@ -25,6 +32,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
     String continentText, countryText;
     ArrayAdapter<CharSequence> adaptercountry;
     DatabaseHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,16 +109,16 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                         Aposento comedor = new Aposento();
                         Aposento cocina = new Aposento();
 
-                        sala.setName("Sala");
+                        sala.setName("sala");
                         sala.setUserCorreo(user.getEmail());
 
-                        dormitorio.setName("Dormitorio");
+                        dormitorio.setName("dormitorio");
                         dormitorio.setUserCorreo(user.getEmail());
 
-                        comedor.setName("Comedor");
+                        comedor.setName("comedor");
                         comedor.setUserCorreo(user.getEmail());
 
-                        cocina.setName("Cocina");
+                        cocina.setName("cocina");
                         cocina.setUserCorreo(user.getEmail());
 
                         db.addUser(user);
@@ -118,7 +126,52 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                         db.addAposento(dormitorio);
                         db.addAposento(comedor);
                         db.addAposento(cocina);
+                        AsyncTask.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    URL url = new URL("http://192.168.0.14/api/login/Registrar");
 
+                                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                                    con.setRequestMethod("POST");
+
+                                    con.setRequestProperty("Content-Type", "application/json; utf-8");
+                                    con.setRequestProperty("Accept", "application/json");
+
+                                    con.setDoOutput(true);
+
+                                    String jsonInputString = "{\"Nombre\":" + "\"" + nameText + "\"" + "," +
+                                            "\"Apellido\":" + "\"" + lastNameText + "\"" + "," +
+                                            "\"Correo\":" + "\"" + emailText + "\"" + "," +
+                                            "\"Contraseña\":" + "\"" + passText + "\"" + "," +
+                                            "\"Direccion\":" + "\"" + addressText + "\"" + "," +
+                                            "\"Continente\":" + "\"" + continentText + "\"" + "," +
+                                            "\"Pais\":" + "\"" + countryText + "\"" + "}";
+                                    System.out.println(jsonInputString);
+
+                                    try (OutputStream os = con.getOutputStream()) {
+                                        byte[] input = jsonInputString.getBytes("utf-8");
+                                        os.write(input, 0, input.length);
+                                    }
+
+                                    int code = con.getResponseCode();
+                                    System.out.println(code);
+
+                                    try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                                        StringBuilder response = new StringBuilder();
+                                        String responseLine = null;
+                                        while ((responseLine = br.readLine()) != null) {
+                                            response.append(responseLine.trim());
+                                        }
+                                        System.out.println(response.toString());
+                                    }
+                                } catch (MalformedURLException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
                         Toast.makeText(Register.this, "Su cuenta se ha registrado exitosamente.", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Register.this,MainActivity.class);
