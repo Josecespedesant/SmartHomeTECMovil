@@ -3,6 +3,7 @@ package com.example.smarthometec.ui.aposentos;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.smarthometec.DeviceList;
 import com.example.smarthometec.Menu;
@@ -40,6 +42,7 @@ public class AposentosFragment extends Fragment {
     public static ArrayAdapter<String>  arrayAdapter;
     List<String> nombres;
     String email;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class AposentosFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), UserChamberInput.class);
+                i.putExtra("email",email);
                 startActivityForResult(i, 1);
                 listView.setAdapter(arrayAdapter);
             }
@@ -112,9 +116,22 @@ public class AposentosFragment extends Fragment {
             case(1):{
                 if(resultCode == Activity.RESULT_OK){
                     String nombre = data.getStringExtra("apo");
-                    Aposento aposentoaux = new Aposento(nombre,email);
-                    db.addAposento(aposentoaux);
-                    viewAposentos();
+                    if(!db.checkAposento(email,nombre)){
+                        Menu m = (Menu) getActivity();
+                        m.listaAposentos.add(nombre);
+                        Aposento aposentoaux = new Aposento(nombre,email);
+                        db.addAposento(aposentoaux);
+
+                        FragmentTransaction ft = getParentFragmentManager().beginTransaction();
+                        if(Build.VERSION.SDK_INT>=26){
+                            ft.setReorderingAllowed(false);
+                        }
+                        ft.detach(this).attach(this).commit();
+
+                        viewAposentos();
+                    }else{
+                        Toast.makeText(getActivity(), "Ya hay un aposento con este nombre.", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             }

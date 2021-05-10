@@ -109,16 +109,16 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                         Aposento comedor = new Aposento();
                         Aposento cocina = new Aposento();
 
-                        sala.setName("sala");
+                        sala.setName("Sala");
                         sala.setUserCorreo(user.getEmail());
 
-                        dormitorio.setName("dormitorio");
+                        dormitorio.setName("Dormitorio");
                         dormitorio.setUserCorreo(user.getEmail());
 
-                        comedor.setName("comedor");
+                        comedor.setName("Comedor");
                         comedor.setUserCorreo(user.getEmail());
 
-                        cocina.setName("cocina");
+                        cocina.setName("Cocina");
                         cocina.setUserCorreo(user.getEmail());
 
                         db.addUser(user);

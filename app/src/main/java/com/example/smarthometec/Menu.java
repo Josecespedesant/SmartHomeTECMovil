@@ -17,9 +17,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Menu extends AppCompatActivity {
     public static String email;
-
+    public static ArrayList<String> listaAposentos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class Menu extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         email = getIntent().getStringExtra("email");
+        listaAposentos = new ArrayList<String>();
 
         
 

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +17,23 @@ import com.example.smarthometec.ui.aposentos.AposentosFragment;
 import com.example.smarthometec.ui.database.DatabaseHandler;
 import com.example.smarthometec.ui.database.Dispositivo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserDeviceInputs extends AppCompatActivity {
 
     Button btn;
     EditText etDescr, etTipo, etMarca, etNumero, etConsumo;
     Spinner dropdown;
     String itemselected, email;
-
+    String descr,tipo,marca,numeroserie,consumo;
     DatabaseHandler db;
 
     @Override
@@ -32,6 +43,7 @@ public class UserDeviceInputs extends AppCompatActivity {
         dropdown  = findViewById(R.id.spinner1);
         dropdown.setAdapter(AposentosFragment.arrayAdapter);
         email = getIntent().getStringExtra("email");
+
         db = new DatabaseHandler(this);
 
         btn = findViewById(R.id.addBttnDevice);
@@ -45,11 +57,11 @@ public class UserDeviceInputs extends AppCompatActivity {
                 etConsumo  = findViewById(R.id.consumoDispositivo);
                 itemselected = dropdown.getSelectedItem().toString();
 
-                String descr = etDescr.getText().toString();
-                String tipo = etTipo.getText().toString();
-                String marca = etMarca.getText().toString();
-                String numeroserie = etNumero.getText().toString();
-                String consumo = etConsumo.getText().toString();
+                 descr = etDescr.getText().toString();
+                 tipo = etTipo.getText().toString();
+                 marca = etMarca.getText().toString();
+                 numeroserie = etNumero.getText().toString();
+                 consumo = etConsumo.getText().toString();
 
 
                 if(etDescr.equals("")){
@@ -63,29 +75,79 @@ public class UserDeviceInputs extends AppCompatActivity {
                 }else if(etConsumo.equals("")){
                     Toast.makeText(UserDeviceInputs.this, "Por favor defina un valor de consumo.", Toast.LENGTH_SHORT).show();
                 }else{
+                    AsyncTask.execute(new Runnable() {//CORREGIR
+                        @Override
+                        public void run() {
+                            try {
+                                URL url = new URL("http://192.168.0.14/api/general/EditarDispositivo");
 
-                        Dispositivo dispositivoaux = new Dispositivo(numeroserie,descr,itemselected, email, marca, consumo);
-                        db.addDispositivo(dispositivoaux);
+                                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                                con.setRequestMethod("POST");
 
-                        Intent intent = new Intent();
-                        intent.putExtra("descr", descr);
-                        intent.putExtra("tipo", tipo);
-                        intent.putExtra("marca", marca);
-                        intent.putExtra("numero", numeroserie);
-                        intent.putExtra("consumo", consumo);
-                        intent.putExtra("aposento", itemselected);
+                                con.setRequestProperty("Content-Type", "application/json; utf-8");
+                                con.setRequestProperty("Accept", "application/json");
 
-                        Toast.makeText(UserDeviceInputs.this, "Dispositivo agregado con éxito.", Toast.LENGTH_SHORT).show();
+                                con.setDoOutput(true);
 
-                        setResult(Activity.RESULT_OK,intent);
-                        finish();
+                                String jsonInputString = "{\"Serie\":" + "\"" + numeroserie +"\"" + "," +
+                                        "\"Marca\":" + "\"" + marca + "\"" + "," +
+                                        "\"Consumo_Electrico\":" + "\"" + consumo + "\"" + "," +
+                                        "\"Aposento\":" + "\"" + itemselected + "\"" + "," +
+                                        "\"Nombre\":" + "\"" + tipo + "\"" + "," +
+                                        "\"Descripcion\":" + "\"" + descr  + "\"" + "," +
+                                        "\"Tiempo_Garantia\":" + "null" + "}"+
+                                        "\"Activo\":" + "\""  +"false"+ "\"" + "," +
+                                        "\"Historial_Dueños\":" + "null" + "," +
+                                        "\"Distribuidor\":" + "null" + "," +
+                                        "\"AgergadoPor\":" + "null" + "," +
+                                        "\"Dueño\":" + "\"" +  email + "\"" + "}" ;
 
+                                try (OutputStream os = con.getOutputStream()) {
+                                    byte[] input = jsonInputString.getBytes("utf-8");
+                                    os.write(input, 0, input.length);
+                                }
 
+                                int code = con.getResponseCode();
+                                System.out.println(code);
+
+                                try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+                                    StringBuilder response = new StringBuilder();
+                                    String responseLine = null;
+                                    while ((responseLine = br.readLine()) != null) {
+                                        response.append(responseLine.trim());
+                                    }
+                                    System.out.println(response.toString());
+                                    if(response.toString().equals("\"El dispositivo ha sido actualizado \"")){
+                                        Dispositivo dispositivoaux = new Dispositivo(numeroserie,descr,itemselected, email, marca, consumo);
+                                        db.addDispositivo(dispositivoaux);
+
+                                        Intent intent = new Intent();
+                                        intent.putExtra("descr", descr);
+                                        intent.putExtra("tipo", tipo);
+                                        intent.putExtra("marca", marca);
+                                        intent.putExtra("numero", numeroserie);
+                                        intent.putExtra("consumo", consumo);
+                                        intent.putExtra("aposento", itemselected);
+                                        runOnUiThread(()->{
+                                            Toast.makeText(UserDeviceInputs.this, "El dispositivo se ha agregado exitosamente.", Toast.LENGTH_SHORT).show();
+                                        });
+                                        setResult(Activity.RESULT_OK,intent);
+                                        finish();
+                                    }else if(response.toString().equals("\"El Dispositivo no se ha entontrado o esta activo\"")){
+                                        runOnUiThread(()->{
+                                            Toast.makeText(UserDeviceInputs.this, "El número de serie no se ha entontrado o el dispositivo está activo", Toast.LENGTH_SHORT).show();
+                                        });
+                                    }
+                                }
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
 
                 }
-
-                //ELSE IF numero dispositivo no esta registrado THEN numero no registrado, intente de nuevo
-                //ELSE IF nombre ya está registrado THEN no pueden haber dos aposentos con el mismo nombre
 
             }
         });

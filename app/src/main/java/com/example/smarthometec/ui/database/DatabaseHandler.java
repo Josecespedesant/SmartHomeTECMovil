@@ -116,6 +116,20 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 new String[] { aposento.getUserCorreo() });
     }
 
+    public boolean checkAposento(String email, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_APOSENTO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(nombre_aposento) ='"+ name.trim()+"'";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() <=0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+        return true;
+    }
+
     public void deleteAposento(Aposento aposento) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_APOSENTO, KEY_APOSENTO_EMAIL + " = ?",
@@ -254,30 +268,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 new String[] { dispositivo.getNumSerie() });
     }
 
-    public boolean checkDispositivo(String numserie){
-        String[] columns = {
-                KEY_SERIE
-        };
-        String selection = KEY_EMAIL + " = ?";
-        SQLiteDatabase db = this.getWritableDatabase();
-        String[] selectionArgs = {numserie};
-
-        Cursor cursor = db.query(TABLE_DISPOSITIVO,
-                columns,
-                selection,
-                selectionArgs,
-                null, null, null
-        );
-
-        int cursorCount = cursor.getCount();
-        cursor.close();
-        db.close();
-        if(cursorCount>0){
-            return true;
-        }
-        return false;
-    }
-
     public Cursor viewDispositivos(String email, String aposento){
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_DISPOSITIVO + " WHERE TRIM(user_email) ='"+ email.trim()+"'" + " AND " + " TRIM(aposento) ='"+ aposento.trim()+"'";
@@ -299,6 +289,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         db.close();
 
     }
+
+
 
 
 }

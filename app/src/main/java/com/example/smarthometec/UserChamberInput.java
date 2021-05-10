@@ -10,13 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class UserChamberInput extends AppCompatActivity {
     Button btn;
     EditText etName;
+    String correo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_chamber_input);
+
+        correo = getIntent().getStringExtra("email");
+
         btn = findViewById(R.id.addBttn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
