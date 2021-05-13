@@ -41,6 +41,10 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     DatabaseHandler db;
     Button deleteacc;
+
+    private static final String ACCEPT_PROPERTY = "application/geo+json;version=1";
+    private static final String USER_AGENT_PROPERTY = "xxxx.com (xxxxxxxxx@gmail.com)";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         profileViewModel =
@@ -68,7 +72,7 @@ public class ProfileFragment extends Fragment {
         deleteacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AsyncTask.execute(new Runnable() {//CORREGIR
+                AsyncTask.execute(new Runnable() {//CORREGIR PORQUE NO SE BORRAN LOS APOSENTOS
                     @Override
                     public void run() {
                         try {
@@ -78,14 +82,19 @@ public class ProfileFragment extends Fragment {
                             con.setRequestMethod("POST");
 
                             con.setRequestProperty("Content-Type", "application/json; utf-8");
-                            con.setRequestProperty("Accept", "application/json");
+                            //con.setRequestProperty("Accept", "application/json");
+
+                            con.setRequestProperty("Accept", ACCEPT_PROPERTY);  // added
+                            con.setRequestProperty("User-Agent", USER_AGENT_PROPERTY); // added
 
                             con.setDoOutput(true);
 
-                            String jsonInputString = "{\"Nombre\":" +   "null"  + "," +
-                                    "\"Apellido\":" +  "null" + "," +
+
+                            String jsonInputString =
+                                    "{\"Nombre\":" +   "null"  + "," +
+                                    "\"Apellido\":" +  "null" +  "," +
                                     "\"Correo\":" + "\"" + m.email + "\"" + "," +
-                                    "\"Contraseña\":" + "null"  + "," +
+                                    "\"Contrasena\":" + "null"  + "," +
                                     "\"Direccion\":" + "null"  + "," +
                                     "\"Continente\":" + "null"  + "," +
                                     "\"Pais\":" + "null"  + "}";
@@ -97,7 +106,6 @@ public class ProfileFragment extends Fragment {
 
                             int code = con.getResponseCode();
                             System.out.println(code);
-
                             try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
                                 StringBuilder response = new StringBuilder();
                                 String responseLine = null;
@@ -109,7 +117,9 @@ public class ProfileFragment extends Fragment {
                                     db.deleteAposento(new Aposento("", user.getEmail()));
                                     db.deleteDispositivo(new Dispositivo(user.getEmail()));
                                     db.deleteUser(user);
-                                    Toast.makeText(getContext(), "Su cuenta se ha eliminado exitosamente.", Toast.LENGTH_SHORT).show();
+                                    getActivity().runOnUiThread(()->{
+                                        Toast.makeText(getContext(), "Su cuenta se ha eliminado exitosamente.", Toast.LENGTH_SHORT).show();
+                                    });
                                     Intent i = new Intent(getActivity(),MainActivity.class);
                                     startActivity(i);
                                     getActivity().finish();

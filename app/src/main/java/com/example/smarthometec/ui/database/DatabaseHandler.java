@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DatabaseHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "smartHomeTEC";
@@ -32,6 +35,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     private static final String KEY_SERIE = "numSerie";
     private static final String KEY_CONSUMO = "consumo";
     private static final String KEY_ISON = "isOn";
+    private static final String KEY_INITIAL_DATE = "init_date";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -62,7 +66,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                 + KEY_USER_CORREO + " TEXT,"
                 + KEY_APOSENTO + " TEXT,"
                 + KEY_CONSUMO + " TEXT,"
-                + KEY_ISON + " INTEGER"
+                + KEY_ISON + " INTEGER,"
+                + KEY_INITIAL_DATE + " TEXT"
                 + ")";
 
         db.execSQL(CREATE_USERS_TABLE);
@@ -239,6 +244,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put(KEY_APOSENTO, dispositivo.getAposento());
         values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
         values.put(KEY_ISON, dispositivo.isOn());
+        values.put(KEY_INITIAL_DATE, dispositivo.getInit_date());
         // Inserting Row
         db.insert(TABLE_DISPOSITIVO, null, values);
         //2nd argument is String containing nullColumnHack
@@ -263,6 +269,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         values.put(KEY_APOSENTO, dispositivo.getAposento());
         values.put(KEY_CONSUMO, dispositivo.getConsumoElectrico());
         values.put(KEY_ISON, dispositivo.isOn());
+        values.put(KEY_INITIAL_DATE, dispositivo.getInit_date());
         // updating row
         return db.update(TABLE_DISPOSITIVO, values, KEY_SERIE + " = ?",
                 new String[] { dispositivo.getNumSerie() });

@@ -70,7 +70,7 @@ public class SyncFragment extends Fragment {
                                     con.setDoOutput(true);
 
                                     String jsonInputString = "{\"Correo\":" + "\"" + correo +"\"" + "," +
-                                            "\"Nombre\":" + "\"" + aux + "\""+"}" ;
+                                            "\"Aposento\":" + "\"" + aux + "\""+"}" ;
 
                                     try (OutputStream os = con.getOutputStream()) {
                                         byte[] input = jsonInputString.getBytes("utf-8");

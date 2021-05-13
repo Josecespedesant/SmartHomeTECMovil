@@ -143,7 +143,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemSel
                                     String jsonInputString = "{\"Nombre\":" + "\"" + nameText + "\"" + "," +
                                             "\"Apellido\":" + "\"" + lastNameText + "\"" + "," +
                                             "\"Correo\":" + "\"" + emailText + "\"" + "," +
-                                            "\"Contraseña\":" + "\"" + passText + "\"" + "," +
+                                            "\"Contrasena\":" + "\"" + passText + "\"" + "," +
                                             "\"Direccion\":" + "\"" + addressText + "\"" + "," +
                                             "\"Continente\":" + "\"" + continentText + "\"" + "," +
                                             "\"Pais\":" + "\"" + countryText + "\"" + "}";

@@ -75,7 +75,7 @@ public class UserDeviceInputs extends AppCompatActivity {
                 }else if(etConsumo.equals("")){
                     Toast.makeText(UserDeviceInputs.this, "Por favor defina un valor de consumo.", Toast.LENGTH_SHORT).show();
                 }else{
-                    AsyncTask.execute(new Runnable() {//CORREGIR
+                    AsyncTask.execute(new Runnable() {
                         @Override
                         public void run() {
                             try {
@@ -91,16 +91,16 @@ public class UserDeviceInputs extends AppCompatActivity {
 
                                 String jsonInputString = "{\"Serie\":" + "\"" + numeroserie +"\"" + "," +
                                         "\"Marca\":" + "\"" + marca + "\"" + "," +
-                                        "\"Consumo_Electrico\":" + "\"" + consumo + "\"" + "," +
+                                        "\"Consumo_Electrico\":"  + consumo  + "," +
                                         "\"Aposento\":" + "\"" + itemselected + "\"" + "," +
                                         "\"Nombre\":" + "\"" + tipo + "\"" + "," +
-                                        "\"Descripcion\":" + "\"" + descr  + "\"" + "," +
-                                        "\"Tiempo_Garantia\":" + "null" + "}"+
-                                        "\"Activo\":" + "\""  +"false"+ "\"" + "," +
-                                        "\"Historial_Dueños\":" + "null" + "," +
+                                        "\"Decripcion\":" + "\"" + descr  + "\"" + "," +
+                                        "\"Tiempo_Garantia\":" + "null" + "," +
+                                        "\"Activo\":" + "true" + "," +
+                                        "\"Historial_Duenos\":" + "null" + "," +
                                         "\"Distribuidor\":" + "null" + "," +
                                         "\"AgergadoPor\":" + "null" + "," +
-                                        "\"Dueño\":" + "\"" +  email + "\"" + "}" ;
+                                        "\"Dueno\":" + "\"" +  email + "\"" + "}" ;
 
                                 try (OutputStream os = con.getOutputStream()) {
                                     byte[] input = jsonInputString.getBytes("utf-8");
@@ -135,7 +135,7 @@ public class UserDeviceInputs extends AppCompatActivity {
                                         finish();
                                     }else if(response.toString().equals("\"El Dispositivo no se ha entontrado o esta activo\"")){
                                         runOnUiThread(()->{
-                                            Toast.makeText(UserDeviceInputs.this, "El número de serie no se ha entontrado o el dispositivo está activo", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(UserDeviceInputs.this, "El número de serie no se ha encontrado o el dispositivo está activo", Toast.LENGTH_SHORT).show();
                                         });
                                     }
                                 }

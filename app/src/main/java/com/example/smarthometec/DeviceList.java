@@ -40,6 +40,7 @@ public class DeviceList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String id = (String) adapterView.getItemAtPosition(i);
                 Intent intent = new Intent(DeviceList.this,DeviceInfo.class);
+
                 intent.putExtra("email", email);
                 intent.putExtra("aposento",aposento);
                 intent.putExtra("idserie",id);
