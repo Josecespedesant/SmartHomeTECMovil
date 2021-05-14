@@ -1,5 +1,8 @@
 package com.example.smarthometec.ui.database;
 
+/**
+ * Clase de los Usuarios que representa a cada uno de los usuarios en el dispositivo.
+ */
 public class User {
     String name, lastName, address, email, pass, continent, country;
 

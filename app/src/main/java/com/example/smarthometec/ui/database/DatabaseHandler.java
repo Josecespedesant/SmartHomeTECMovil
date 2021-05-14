@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Permite el manejo de toda la base de datos en SQLite
+ */
 public class DatabaseHandler extends SQLiteOpenHelper{
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "smartHomeTEC";

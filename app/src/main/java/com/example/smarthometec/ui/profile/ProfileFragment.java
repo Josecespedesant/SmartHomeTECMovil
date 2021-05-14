@@ -35,7 +35,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-
+/**
+ * Clase del Perfil donde se muestra la información del usuario.
+ */
 public class ProfileFragment extends Fragment {
     TextView userNameTV, lastNameTV, emailTV, dirTV;
     private ProfileViewModel profileViewModel;

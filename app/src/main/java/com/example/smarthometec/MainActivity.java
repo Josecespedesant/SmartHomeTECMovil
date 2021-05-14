@@ -25,7 +25,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * Actividad del login.
+ */
 public class MainActivity extends AppCompatActivity {
     EditText etEmail, etPass;
     Button loginbtn;

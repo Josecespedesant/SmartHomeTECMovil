@@ -22,7 +22,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+/**
+ * Actividad que permite la edición de un dispositivo.
+ */
 public class EditUserDevice extends AppCompatActivity {
     Button btn;
     EditText etDescr, etTipo, etMarca, etConsumo;

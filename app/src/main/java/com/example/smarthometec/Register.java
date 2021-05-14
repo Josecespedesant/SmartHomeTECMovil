@@ -25,6 +25,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Actividad de registro de un nuevo usuario.
+ */
 public class Register extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText etName, etLastName, etAddres, etEmail, etPass, etConfirmPass;
     Spinner continents, countries;

@@ -27,6 +27,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad para ingresar un nuevo dispositivo en un nuevo aposento.
+ */
 public class UserDeviceInputs extends AppCompatActivity {
 
     Button btn;

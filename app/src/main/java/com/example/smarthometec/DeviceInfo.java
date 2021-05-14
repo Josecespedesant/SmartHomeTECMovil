@@ -30,7 +30,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Actividad que muestra la información del dispositivo
+ */
 public class DeviceInfo extends AppCompatActivity {
     ListView listView;
     ArrayList<String> listItem;
@@ -137,10 +139,10 @@ public class DeviceInfo extends AppCompatActivity {
                                     con.setRequestProperty("Accept", "application/json");
 
                                     con.setDoOutput(true);
-
+                                    int min = (minutes/1000)/60;
                                     String jsonInputString = "{\"Serie\":" + "\"" + id +"\"" + "," +
                                             "\"Fecha\":" + "\"" + date +"\"" + "," +
-                                            "\"Tiempo_Encendido\":" + "\"" + (minutes/1000)/60 +"\"" +"}" ;
+                                            "\"Tiempo_Encendido\":" + "\"" + min +"\"" +"}" ;
 
                                     try (OutputStream os = con.getOutputStream()) {
                                         byte[] input = jsonInputString.getBytes("utf-8");

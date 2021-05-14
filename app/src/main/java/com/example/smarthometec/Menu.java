@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Actividad principal del menú
+ */
 public class Menu extends AppCompatActivity {
     public static String email;
     public static ArrayList<String> listaAposentos;

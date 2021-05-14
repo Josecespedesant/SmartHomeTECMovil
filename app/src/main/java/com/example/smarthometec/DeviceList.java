@@ -15,6 +15,9 @@ import com.example.smarthometec.ui.database.DatabaseHandler;
 
 import java.util.ArrayList;
 
+/**
+ * Actividad que muestra la lista de los dispositivos en un aposento.
+ */
 public class DeviceList extends AppCompatActivity {
 
     ListView listView;

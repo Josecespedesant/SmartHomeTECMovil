@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Clase del fragmento de los aposentos
+ */
 public class AposentosFragment extends Fragment {
 
     DatabaseHandler db;
@@ -58,7 +61,7 @@ public class AposentosFragment extends Fragment {
         addDispositivo = root.findViewById(R.id.addDispositivoBtn);
         listView = root.findViewById(R.id.lista_de_aposentos);
 
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(arrayAdapter); //Carga los aposentos
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,7 +72,7 @@ public class AposentosFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        //Permite añadir un aposento nuevo
         addAposentoApo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +82,7 @@ public class AposentosFragment extends Fragment {
                 listView.setAdapter(arrayAdapter);
             }
         });
-
+        //Permite añadir un dispositivo nuevo
         addDispositivo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

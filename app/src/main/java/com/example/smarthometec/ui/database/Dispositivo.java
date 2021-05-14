@@ -1,5 +1,8 @@
 package com.example.smarthometec.ui.database;
 
+/**
+ * Clase de los Dispositivos que representa un dispositivo propiedad del usuario.
+ */
 public class Dispositivo {
     String marca, userCorreo, aposento, numSerie, description;
     String consumoElectrico, init_date, final_date;

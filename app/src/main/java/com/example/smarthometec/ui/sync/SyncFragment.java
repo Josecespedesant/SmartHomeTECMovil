@@ -30,7 +30,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-
+/**
+ * Clase de la pantalla de sincronización para conectar los últimos cambios con postgres.
+ */
 public class SyncFragment extends Fragment {
 
     private SyncViewModel syncViewModel;

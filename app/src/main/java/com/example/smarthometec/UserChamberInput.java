@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+/**
+ * Actividad para ingresar un nuevo aposento.
+ */
 public class UserChamberInput extends AppCompatActivity {
     Button btn;
     EditText etName;

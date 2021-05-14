@@ -1,5 +1,8 @@
 package com.example.smarthometec.ui.database;
 
+/**
+ * Clase de los Aposentos que representa un lugar en la casa del usuario.
+ */
 public class Aposento {
     String name, userCorreo;
 
